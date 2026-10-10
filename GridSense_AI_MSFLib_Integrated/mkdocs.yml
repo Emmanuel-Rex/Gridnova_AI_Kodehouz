@@ -1,0 +1,49 @@
+site_name: MSF FastAPI Template
+site_description: Guide to the MSFLib FastAPI starter template
+site_url: https://msflib.github.io/docsite/fastapi-template/
+repo_url: https://github.com/msflib/fastapi-template
+docs_dir: ./docs
+site_dir: ./doc-site
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Configuration: configuration.md
+  - How the app is wired: wiring.md
+  - Database and seeding: database-and-seeding.md
+  - Testing and deployment: testing-and-deployment.md
+  - Extending the template: extending.md
