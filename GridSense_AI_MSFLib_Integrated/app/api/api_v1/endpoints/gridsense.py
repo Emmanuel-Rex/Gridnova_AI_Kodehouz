@@ -1,4 +1,4 @@
-"""Gridnova AI API. Estimated demand, real DS18B20 temperature; no metered energy."""
+"""Gridnova AI API: measured PZEM electrical telemetry and simulated load-management demand."""
 import io
 import logging
 import math
@@ -30,7 +30,9 @@ state = dict(device='gridnova-esp32', online=False, updated_at=None,
              load1=False, load2=False, auto=True, overload=False,
              thermal_trip=False, temperature_c=None, demand_w=0,
              connected_w=0, limit_w=70,
-             mode='SIMULATED_DEMAND_REAL_TEMPERATURE')
+             mode='SIMULATED_DEMAND_REAL_TEMPERATURE', pzem_valid=False,
+             voltage_v=None, current_a=None, power_w=None, energy_kwh=None,
+             frequency_hz=None, pf=None)
 history = deque(maxlen=100)
 events = deque(maxlen=100)
 queue = deque(maxlen=20)
@@ -60,6 +62,19 @@ with engine.begin() as conn:
         load1 BOOLEAN NOT NULL, load2 BOOLEAN NOT NULL, auto BOOLEAN NOT NULL,
         overload BOOLEAN NOT NULL, thermal_trip BOOLEAN NOT NULL
     )'''))
+    # Add PZEM fields to existing deployments without dropping historical rows.
+    # Older records retain NULLs for measurements that were not collected.
+    for column in ('pzem_valid BOOLEAN', 'voltage_v DOUBLE PRECISION',
+                   'current_a DOUBLE PRECISION', 'power_w DOUBLE PRECISION',
+                   'energy_kwh DOUBLE PRECISION', 'frequency_hz DOUBLE PRECISION',
+                   'power_factor DOUBLE PRECISION'):
+        name = column.split()[0]
+        if engine.dialect.name == 'postgresql':
+            conn.execute(text(f'ALTER TABLE gridnova_telemetry ADD COLUMN IF NOT EXISTS {column}'))
+        else:
+            existing = {row[1] for row in conn.execute(text('PRAGMA table_info(gridnova_telemetry)'))}
+            if name not in existing:
+                conn.execute(text(f'ALTER TABLE gridnova_telemetry ADD COLUMN {column}'))
     conn.execute(text('''CREATE INDEX IF NOT EXISTS ix_gridnova_telemetry_ts
                          ON gridnova_telemetry(ts)'''))
     conn.execute(text('''CREATE TABLE IF NOT EXISTS gridnova_events (
@@ -91,6 +106,15 @@ class Telemetry(BaseModel):
     demand_w: float = Field(ge=0, allow_inf_nan=False)
     connected_w: float = Field(ge=0, allow_inf_nan=False)
     limit_w: float = Field(gt=0, allow_inf_nan=False)
+    pzem_valid: bool = False
+    voltage_v: float | None = Field(default=None, ge=0, allow_inf_nan=False)
+    current_a: float | None = Field(default=None, ge=0, allow_inf_nan=False)
+    power_w: float | None = Field(default=None, ge=0, allow_inf_nan=False)
+    energy_kwh: float | None = Field(default=None, ge=0, allow_inf_nan=False)
+    frequency_hz: float | None = Field(default=None, ge=0, allow_inf_nan=False)
+    # Firmware uses "pf"; accept both this and "power_factor" in storage/reporting.
+    pf: float | None = Field(default=None, ge=0, le=1, allow_inf_nan=False)
+
 
     @field_validator('temperature_c')
     @classmethod
@@ -131,20 +155,33 @@ def publish_event(name: str, data: dict) -> None:
 def telemetry(item: Telemetry, x_device_key: str | None = Header(default=None)):
     authorize(x_device_key, 'DEVICE_KEY')
     now = time.time()
+    data = item.model_dump()
+    # Invalid/missing PZEM data must not be interpreted as measured zero.
+    if not item.pzem_valid:
+        for field in ('voltage_v', 'current_a', 'power_w', 'energy_kwh', 'frequency_hz', 'pf'):
+            data[field] = None
+    data['power_factor'] = data.pop('pf')
     with engine.begin() as conn:
         conn.execute(text('''INSERT INTO gridnova_telemetry
             (ts,device,mode,temperature_c,demand_w,connected_w,limit_w,
-             load1,load2,auto,overload,thermal_trip)
+             load1,load2,auto,overload,thermal_trip,pzem_valid,voltage_v,
+             current_a,power_w,energy_kwh,frequency_hz,power_factor)
             VALUES (:ts,:device,:mode,:temperature_c,:demand_w,:connected_w,
-                    :limit_w,:load1,:load2,:auto,:overload,:thermal_trip)'''),
-            {'ts': now, **item.model_dump()})
+                    :limit_w,:load1,:load2,:auto,:overload,:thermal_trip,
+                    :pzem_valid,:voltage_v,:current_a,:power_w,:energy_kwh,
+                    :frequency_hz,:power_factor)'''), {'ts': now, **data})
     with lock:
         continuous = state['updated_at'] is not None and now - state['updated_at'] < 25
         previous = dict(state)
         state.update(item.model_dump())
+        state.update({k: data[k] for k in ('pzem_valid', 'voltage_v', 'current_a', 'power_w', 'energy_kwh', 'frequency_hz')})
+        state['pf'] = data['power_factor']
         state.update(updated_at=now, online=True)
         history.append({'time': now, 'temperature_c': item.temperature_c,
-                        'demand_w': item.demand_w, 'connected_w': item.connected_w})
+                        'demand_w': item.demand_w, 'connected_w': item.connected_w,
+                        'voltage_v': data['voltage_v'], 'current_a': data['current_a'],
+                        'power_w': data['power_w'], 'energy_kwh': data['energy_kwh'],
+                        'frequency_hz': data['frequency_hz'], 'pf': data['power_factor']})
     data = {'device': item.device, 'demand_w': item.demand_w,
             'connected_w': item.connected_w, 'limit_w': item.limit_w,
             'load1': item.load1, 'load2': item.load2}
@@ -200,7 +237,9 @@ def send_command(item: Command, x_admin_key: str | None = Header(default=None)):
 
 REPORT_COLUMNS = ['time_local', 'device', 'mode', 'temperature_c', 'estimated_demand_w',
                   'estimated_connected_w', 'configured_limit_w', 'load1', 'load2',
-                  'auto', 'estimated_limit_exceeded', 'thermal_trip']
+                  'auto', 'estimated_limit_exceeded', 'thermal_trip', 'pzem_valid',
+                  'voltage_v', 'current_a', 'power_w', 'energy_kwh', 'frequency_hz',
+                  'power_factor']
 
 
 def report_range(period: str, anchor: str | None):
@@ -230,13 +269,17 @@ def report_rows(period: str, date: str | None):
     a, b, start, end, tz = report_range(period, date)
     with engine.connect() as conn:
         records = conn.execute(text('''SELECT ts,device,mode,temperature_c,demand_w,
-            connected_w,limit_w,load1,load2,auto,overload,thermal_trip
+            connected_w,limit_w,load1,load2,auto,overload,thermal_trip,
+            pzem_valid,voltage_v,current_a,power_w,energy_kwh,frequency_hz,power_factor
             FROM gridnova_telemetry WHERE ts >= :a AND ts < :b ORDER BY ts'''),
             {'a': a, 'b': b}).mappings().all()
     rows = [[datetime.fromtimestamp(r['ts'], tz).strftime('%Y-%m-%d %H:%M:%S'),
              r['device'], r['mode'], r['temperature_c'], r['demand_w'],
              r['connected_w'], r['limit_w'], bool(r['load1']), bool(r['load2']),
-             bool(r['auto']), bool(r['overload']), bool(r['thermal_trip'])] for r in records]
+             bool(r['auto']), bool(r['overload']), bool(r['thermal_trip']),
+             bool(r['pzem_valid']) if r['pzem_valid'] is not None else False,
+             r['voltage_v'], r['current_a'], r['power_w'], r['energy_kwh'],
+             r['frequency_hz'], r['power_factor']] for r in records]
     return rows, start, end
 
 
@@ -249,8 +292,10 @@ def download_report(period: str, format: str = Query('csv', pattern='^(csv|xlsx|
         raise HTTPException(status_code=404, detail='Unknown reporting period')
     rows, start, end = report_rows(period, date)
     filename = f'gridnova_{period}_{start}_{end}.{format}'
-    note = ('ESTIMATED DEMAND AND CONNECTED LOAD ONLY. DS18B20 temperature is measured. '
-            'No verified voltage, current, real power or kWh. Missing samples are not interpolated.')
+    note = ('Demand, connected load, limit and load shedding are simulated. '
+            'DS18B20 temperature and valid PZEM electrical values are measured. '
+            'Energy is the PZEM cumulative meter register, not energy used during this report period. '
+            'Missing samples are not interpolated.')
     if format == 'csv':
         output = io.StringIO()
         writer = csv.writer(output)
@@ -270,7 +315,7 @@ def download_report(period: str, format: str = Query('csv', pattern='^(csv|xlsx|
         for row in rows:
             ws.append(row)
         ws.freeze_panes = 'A4'
-        ws.auto_filter.ref = f'A3:L{max(3, 3 + len(rows))}'
+        ws.auto_filter.ref = f'A3:S{max(3, 3 + len(rows))}'
         ws.column_dimensions['A'].width = 23
         ws.column_dimensions['B'].width = 22
         ws.column_dimensions['C'].width = 40
@@ -294,6 +339,17 @@ def download_report(period: str, format: str = Query('csv', pattern='^(csv|xlsx|
                        ['Average measured temperature (C)', f'{sum(temps)/len(temps):.2f}' if temps else 'N/A'],
                        ['Estimated limit-exceeded samples', str(sum(bool(r[10]) for r in rows))],
                        ['Thermal-trip samples', str(sum(bool(r[11]) for r in rows))]]
+            for label, index, suffix in [('Measured voltage', 13, 'V'),
+                                         ('Measured current', 14, 'A'),
+                                         ('Measured active power', 15, 'W'),
+                                         ('Measured frequency', 17, 'Hz'),
+                                         ('Measured power factor', 18, '')]:
+                values = [r[index] for r in rows if r[12] and r[index] is not None]
+                summary.append([f'Average {label.lower()} ({suffix})' if suffix else f'Average {label.lower()}',
+                                f'{sum(values)/len(values):.3f}' if values else 'N/A'])
+            energy_values = [r[16] for r in rows if r[12] and r[16] is not None]
+            summary.append(['Latest cumulative meter energy (kWh)',
+                            f'{energy_values[-1]:.4f}' if energy_values else 'N/A'])
             t = Table(summary, colWidths=[290, 150])
             t.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#d9f5ef')),
                                    ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
