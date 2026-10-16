@@ -218,3 +218,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Gridnova private firmware
+/firmware/Gridnova_AI/*.ino
+
+# Sensitive configuration
+.env
+.env.*
+!.env.example
+**/secrets.h
+**/node_modules/
+**/dist/

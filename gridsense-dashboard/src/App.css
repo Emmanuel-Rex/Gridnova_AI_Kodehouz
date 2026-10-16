@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+:root{font-family:'DM Sans',sans-serif;color:#e8f1ff;background:#070e1b;font-synthesis:none}*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}.shell{display:flex;min-height:100vh}.sidebar{width:266px;background:#0b1424;border-right:1px solid #1d2a3e;padding:26px 16px;display:flex;flex-direction:column;flex-shrink:0}.brand{display:flex;align-items:center;gap:12px;padding:3px 9px 35px}.brandIcon{width:43px;height:43px;border-radius:12px;background:linear-gradient(140deg,#19cba6,#1687f3);display:grid;place-items:center;font-family:'Space Grotesk';font-weight:800;font-size:25px;position:relative;color:#041322}.brandIcon span{position:absolute;font-size:12px;right:5px;top:3px;color:white}.brand strong{font-family:'Space Grotesk';font-size:18px;letter-spacing:.3px}.brand em{font-style:normal;color:#36d5b6}.brand small,.profile small,.sideHelp small{display:block;font-size:9px;color:#7e94ae;letter-spacing:1px;margin-top:5px}.sideLabel{font-size:10px;font-weight:800;letter-spacing:1.8px;color:#647a95;margin:0 13px 12px}.workspace{border:1px solid #25354c;border-radius:10px;padding:14px 12px;margin:0 3px 31px;color:#e0ebfa;font-size:13px;background:#101d30}.workspace span{float:right}.sidebar nav{display:grid;gap:6px}.sidebar nav button{background:transparent;border:0;color:#8ea2bc;text-align:left;border-radius:10px;padding:13px 15px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:15px}.sidebar nav button span{font-size:18px;width:20px;text-align:center}.sidebar nav button.active{background:#103b4c;color:#5ceac4;border-left:3px solid #39d8b3}.sidebar nav button:hover{background:#16263b}.sideBottom{margin-top:auto}.sideHelp{border:1px solid #224357;background:linear-gradient(130deg,#102c3b,#101d2e);border-radius:12px;padding:18px 12px;color:#bdeee2;font-size:12px}.sideHelp small{letter-spacing:0;font-size:11px}.profile{border-top:1px solid #24344a;display:flex;gap:10px;align-items:center;margin-top:20px;padding:20px 8px 0;font-size:12px}.profile small{font-size:11px;letter-spacing:0}.avatar{background:#1b645b;border:1px solid #329a87;color:#c4fff0;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px}.avatar.mini{width:34px;height:34px}main{flex:1;min-width:0}header{height:75px;border-bottom:1px solid #1d2a3e;display:flex;align-items:center;justify-content:space-between;padding:0 34px;background:#0a1220}.breadcrumbs{font-size:12px;color:#7288a4}.breadcrumbs span{padding:0 12px;color:#4d6078}.breadcrumbs b{color:#d6e7fa}.headerRight{display:flex;align-items:center;gap:19px}.statusPill{color:#e7b66a;border:1px solid #594326;background:#322819;border-radius:100px;padding:8px 12px;font-size:10px;font-weight:800;letter-spacing:.5px}.statusPill.live{color:#5ae8bd;border-color:#1d6759;background:#12362f}.content{padding:35px;max-width:1700px;margin:auto}.pageHeading{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:25px}.eyebrow{color:#43d8b7;font-size:10px;font-weight:800;letter-spacing:2px;margin-bottom:9px}h1,h2,h3{font-family:'Space Grotesk',sans-serif;margin:0}h1{font-size:29px;letter-spacing:-.8px}.pageHeading p,.panelHead p{font-size:12px;color:#7f94ae;margin:9px 0 0}.headingActions{display:flex;align-items:center;gap:12px}.clock{color:#a0b4ca;font-size:12px;padding:11px}.primary,.outline{padding:12px 18px;border-radius:9px;border:1px solid #39d8b4;font-size:12px;font-weight:800}.primary{color:#061d23;background:#42dcb8}.primary:hover{background:#79f0d2}.outline{color:#7be7cc;background:#102a33}.outline:hover{background:#164047}.notice{background:#2a211c;border:1px solid #62432b;border-radius:9px;padding:12px 15px;font-size:12px;color:#e5bb80;margin-bottom:24px;display:flex;justify-content:space-between;gap:10px}.notice.good{background:#0d2a28;border-color:#226956;color:#77e6c3}.notice span{font-size:10px;opacity:.8}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px;margin-bottom:19px}.metric,.panel{background:#0e192a;border:1px solid #213149;border-radius:13px}.metric{padding:22px;min-height:149px}.muted{color:#94a7c0;font-size:12px}.metricValue{font-family:'Space Grotesk';font-size:33px;font-weight:700;margin:15px 0 11px}.metricValue small{font-size:17px;margin-left:4px;color:#8ca3bd}.foot{color:#7086a1;font-size:11px}.twoCol{display:grid;grid-template-columns:1.35fr 1fr;gap:19px;margin-bottom:19px}.panel{padding:23px;margin-bottom:19px}.twoCol .panel{margin:0}.panelHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:23px}.panel h2{font-size:17px}.tag{font-size:9px;color:#4bd6b5;background:#123b3c;border:1px solid #205f57;padding:7px 10px;border-radius:6px;font-weight:800;letter-spacing:.7px;white-space:nowrap}.bars{height:200px;display:flex;align-items:end;gap:12px;padding:15px 6px 0;border-bottom:1px solid #293d56;background:repeating-linear-gradient(to top,transparent,transparent 48px,#1a2a3c 49px,#1a2a3c 50px)}.barCol{height:100%;flex:1;display:flex;align-items:center;justify-content:flex-end;flex-direction:column;gap:7px;min-width:0}.bar{width:75%;max-width:32px;background:linear-gradient(0deg,#127a90,#45d9b7);border-radius:5px 5px 0 0}.barCol small{font-size:9px;color:#6f86a0;white-space:nowrap;overflow:hidden}.chartLegend{display:flex;justify-content:space-between;color:#70a9b2;font-size:10px;margin-top:19px}.loadItem{display:flex;align-items:center;gap:12px;border:1px solid #24354b;border-radius:10px;padding:14px;margin-bottom:12px}.loadIcon{width:38px;height:38px;background:#173844;color:#4ee3c2;display:grid;place-items:center;border-radius:9px}.loadItem>div:nth-child(2){flex:1}.loadItem b{font-size:12px}.loadItem small{display:block;color:#7b91aa;font-size:10px;margin-top:5px}.state{font-size:10px;padding:6px 9px;border-radius:6px;font-weight:800}.state.on{background:#123a31;color:#49d9ab}.state.off{background:#37252c;color:#e8a4ad}.panelFoot{display:flex;justify-content:space-between;font-size:11px;color:#8ea6c0;margin:21px 0}.panelFoot b{color:#47d8b3}.wide{width:100%}.textBtn{background:transparent;border:0;color:#55dec0;font-size:12px}.eventHeader,.eventRow{display:grid;grid-template-columns:1.5fr 1fr .6fr;gap:10px;padding:13px 9px;align-items:center}.eventHeader{color:#667f9d;font-size:10px;letter-spacing:1px;border-bottom:1px solid #2b3a51}.eventRow{font-size:12px;border-bottom:1px solid #1d2d43;color:#c5d6e9}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#3eddb5;margin-right:8px}.severity{color:#69d5bd}.empty{padding:30px;text-align:center;color:#8096b1;font-size:12px}.detailGrid,.controlGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.detailGrid>div,.controlCard{border:1px solid #25384f;padding:18px;border-radius:10px;background:#111f31}.detailGrid small,.detailGrid b{display:block}.detailGrid small{color:#7890aa;font-size:11px;margin-bottom:9px}.detailGrid b{font-size:13px;word-break:break-word}.controlCard h3{font-size:15px}.controlCard p{font-size:12px;color:#91a5bb;margin:9px 0 22px}.commandRow{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.reportBox,.settingsForm{max-width:600px;display:grid;gap:20px}.reportBox label,.settingsForm label{display:grid;gap:8px;font-size:12px;color:#a9bdd1}input,select{background:#0a1424;border:1px solid #31445d;border-radius:8px;color:#eaf6ff;padding:12px;min-width:0}.reportWarning{background:#322819;border:1px solid #674e2d;padding:15px;border-radius:9px;color:#e2bf85;font-size:12px;line-height:1.6}.reportBox button,.settingsForm button{justify-self:start}footer{display:flex;justify-content:space-between;color:#637b97;font-size:10px;padding:25px 0}@media(max-width:1050px){.sidebar{width:225px}.metrics{grid-template-columns:repeat(2,1fr)}.twoCol{grid-template-columns:1fr}.content{padding:25px}}@media(max-width:700px){.shell{display:block}.sidebar{width:auto;padding:13px}.brand{padding:0 0 12px}.sidebar nav{display:flex;overflow-x:auto}.sidebar nav button{white-space:nowrap;padding:10px}.sideLabel,.workspace,.sideBottom{display:none}header{height:56px;padding:0 14px}.content{padding:18px}.pageHeading{align-items:flex-start;flex-direction:column}.headingActions{width:100%;justify-content:space-between}.metrics{gap:10px}.metric{padding:15px;min-height:130px}.metricValue{font-size:25px}.detailGrid,.controlGrid{grid-template-columns:1fr}.panel{padding:16px}.eventHeader,.eventRow{grid-template-columns:1.2fr 1fr .5fr;font-size:10px}.breadcrumbs{font-size:10px}}
+
+/* Presentation polish and legibility fixes */
+.shell h1,.shell h2,.shell h3 { color:#edf7ff !important; text-shadow:none; }
+.shell h1 { font-weight:700; letter-spacing:-.035em; line-height:1.16; }
+.panelHead h2,.panel>h2 { color:#f0f8ff !important; font-weight:700; }
+.metricValue { color:#f0f8ff; }
+.twoCol { grid-template-columns:minmax(0,1.15fr) minmax(350px,1fr); }
+.loadItem { min-width:0; }
+.loadItem>div:nth-child(2) { min-width:0; overflow-wrap:anywhere; }
+.detailGrid>div { text-align:left; }
+.detailGrid b { color:#eaf6ff; }
+.controlCard { text-align:left; }
+.controlCard h3 { color:#eaf6ff; }
+.controlCard .primary,.controlCard .outline { min-height:42px; }
+.eventRow>span:first-child { overflow-wrap:anywhere; }
+.notice { overflow-wrap:anywhere; }
+.reportBox { max-width:760px; }
+.settingsForm { max-width:780px; overflow-wrap:anywhere; }
+@media(max-width:1100px){.twoCol{grid-template-columns:1fr}}
+@media(max-width:700px){.pageHeading h1{font-size:28px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.eventHeader,.eventRow{grid-template-columns:1.3fr 1fr .65fr}}
+
+
+/* Gridnova AI — MSFLib operational events */
+
+.gridnova-msflib-events {
+  background: #101d30;
+  border: 1px solid #24364d;
+  border-radius: 12px;
+  padding: 16px;
+  color: #eaf4ff;
+}
+
+.gridnova-msflib-events .MuiTypography-root {
+  color: #eaf4ff;
+}
+
+.gridnova-msflib-events .MuiDataGrid-root {
+  color: #eaf4ff;
+  background: #101d30;
+  border-color: #2a3c54;
+}
+
+.gridnova-msflib-events .MuiDataGrid-columnHeaders,
+.gridnova-msflib-events .MuiDataGrid-row,
+.gridnova-msflib-events .MuiDataGrid-footerContainer {
+  background: #101d30;
+  border-color: #2a3c54;
+}
+
+.gridnova-msflib-events .MuiDataGrid-cell,
+.gridnova-msflib-events .MuiDataGrid-columnHeaderTitle,
+.gridnova-msflib-events .MuiTablePagination-root {
+  color: #eaf4ff;
+}
+
+.gridnova-msflib-events .MuiSvgIcon-root {
+  color: #8fb1ce;
+}
+
+.gridnova-msflib-events .MuiDataGrid-row:hover {
+  background: #19344b;
+}
+
+.gridnova-msflib-events input {
+  color: #eaf4ff;
+}
+
+.gridnova-msflib-events .MuiInputBase-root,
+.gridnova-msflib-events .MuiOutlinedInput-root {
+  color: #eaf4ff;
+  background: #14243a;
+}
+
+.gridnova-msflib-events .MuiOutlinedInput-notchedOutline {
+  border-color: #38516c;
+}
+
+/* Fix MSFLib table header contrast */
+.gridnova-msflib-events .MuiDataGrid-columnHeader,
+.gridnova-msflib-events .MuiDataGrid-columnHeaders,
+.gridnova-msflib-events .MuiDataGrid-columnHeaderRow {
+  background-color: #16263b !important;
+  color: #eaf4ff !important;
+}
+
+.gridnova-msflib-events .MuiDataGrid-columnHeaderTitle {
+  color: #eaf4ff !important;
+  font-weight: 600;
+}
+
+/* ==========================================
+   GRIDNOVA AI — MSFLib TABLE HOVER FIX
+   ========================================== */
+
+/* Normal rows */
+.gridnova-msflib-events .MuiDataGrid-row {
+  background-color: #101d30 !important;
+  color: #eaf4ff !important;
+  transition: background-color 0.2s ease;
+}
+
+/* Mouse hover: dark teal highlight */
+.gridnova-msflib-events .MuiDataGrid-row:hover {
+  background-color: #173e4a !important;
+  color: #ffffff !important;
+}
+
+/* Keep cell text readable on hover */
+.gridnova-msflib-events .MuiDataGrid-row:hover .MuiDataGrid-cell {
+  background-color: transparent !important;
+  color: #ffffff !important;
+}
+
+/* Selected row */
+.gridnova-msflib-events .MuiDataGrid-row.Mui-selected {
+  background-color: #194457 !important;
+  color: #ffffff !important;
+}
+
+/* Selected row when hovered */
+.gridnova-msflib-events .MuiDataGrid-row.Mui-selected:hover {
+  background-color: #20566a !important;
+}
+
+/* Override MUI DataGrid hover background variables */
+.gridnova-msflib-events .MuiDataGrid-root {
+  --DataGrid-rowHoverColor: #173e4a;
+  --DataGrid-rowSelectedBackground: #194457;
+}
+
+/* Checkbox colors */
+.gridnova-msflib-events .MuiCheckbox-root {
+  color: #8fb1ce !important;
+}
+
+.gridnova-msflib-events .MuiCheckbox-root.Mui-checked {
+  color: #35d7ba !important;
+}
+/* Gridnova AI — MSFLib FormBuilder dark theme */
+
+.gridnova-threshold-form {
+  margin-top: 20px;
+  max-width: 700px;
+  padding: 24px;
+  background: #111e31;
+  border: 1px solid #28405b;
+  border-radius: 12px;
+  color: #f4f8ff;
+}
+
+.gridnova-threshold-form h3 {
+  margin-bottom: 12px;
+}
+
+.gridnova-threshold-form .MuiInputBase-root {
+  background: #0b1628;
+  color: #ffffff;
+}
+
+.gridnova-threshold-form .MuiInputBase-input {
+  color: #ffffff !important;
+}
+
+.gridnova-threshold-form .MuiInputLabel-root {
+  color: #a7bfd8 !important;
+}
+
+.gridnova-threshold-form .MuiInputLabel-root.Mui-focused {
+  color: #37d5b5 !important;
+}
+
+.gridnova-threshold-form .MuiOutlinedInput-notchedOutline {
+  border-color: #35516d !important;
+}
+
+.gridnova-threshold-form .MuiFormHelperText-root {
+  color: #a7bfd8;
+}
+
+.gridnova-threshold-form button[type="submit"] {
+  background: #37d5b5;
+  color: #071725;
+  font-weight: 700;
+}
+
+/* Gridnova AI — MSFLib FormBuilder visibility fixes */
+
+.gridnova-threshold-form input,
+.gridnova-threshold-form select,
+.gridnova-threshold-form textarea {
+  background-color: #0b1628 !important;
+  color: #ffffff !important;
+  border: 1px solid #35516d !important;
+  border-radius: 8px;
+}
+
+.gridnova-threshold-form input:focus,
+.gridnova-threshold-form select:focus {
+  border-color: #37d5b5 !important;
+  outline: 2px solid rgba(55, 213, 181, 0.18);
+}
+
+.gridnova-threshold-form label,
+.gridnova-threshold-form legend,
+.gridnova-threshold-form .MuiFormLabel-root {
+  color: #c8d9ec !important;
+}
+
+.gridnova-threshold-form input::placeholder {
+  color: #8198b2 !important;
+  opacity: 1;
+}
+
+.gridnova-threshold-form .primary {
+  background: #37d5b5;
+  color: #071725;
+  border: 1px solid #37d5b5;
+  font-weight: 700;
+}
+
+.gridnova-threshold-form .primary:hover:not(:disabled) {
+  background: #54e7c9;
+}
+
+.gridnova-threshold-form .foot {
+  color: #a5bad0;
+  line-height: 1.6;
+}
+
+/* GRIDNOVA AI — FIXED DESKTOP SIDEBAR */
+
+@media (min-width: 701px) {
+  .shell {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 266px;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 100;
+  }
+
+  .shell > main {
+    flex: 1;
+    min-width: 0;
+    margin-left: 266px;
+  }
+}
+
+/* Preserve the existing tablet sidebar width */
+@media (min-width: 701px) and (max-width: 1050px) {
+  .sidebar {
+    width: 225px;
+  }
+
+  .shell > main {
+    margin-left: 225px;
+  }
+}
+
+/* Preserve mobile navigation */
+@media (max-width: 700px) {
+  .sidebar {
+    position: relative;
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  .shell > main {
+    margin-left: 0;
+  }
+}
+/* Hide sidebar scrollbar without disabling scrolling */
+@media (min-width: 701px) {
+  .sidebar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .sidebar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+.gridnova-logout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 10px;
+  color: #fda4af;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.gridnova-logout:hover {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: #fb7185;
+}
+

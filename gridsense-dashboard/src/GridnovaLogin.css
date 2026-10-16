@@ -1,0 +1,121 @@
+
+.gridnova-login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 20% 10%, #123f49 0%, transparent 40%),
+    linear-gradient(135deg, #06101f, #0b1728);
+  color: #f0f7ff;
+}
+
+.gridnova-login-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 42px 36px;
+  background: #101f32;
+  border: 1px solid #29445d;
+  border-radius: 20px;
+  box-shadow: 0 24px 70px #0006;
+}
+
+.gridnova-login-logo {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #34d7b5, #158bf0);
+  color: #061827;
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 18px;
+}
+
+.gridnova-login-card h1 {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: 1px;
+}
+
+.gridnova-login-subtitle {
+  color: #64a9c4;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.gridnova-login-card h2 {
+  margin-top: 36px;
+  font-size: 22px;
+}
+
+.gridnova-login-card p {
+  color: #91acc8;
+  line-height: 1.6;
+}
+
+.gridnova-login-card form {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.gridnova-login-card label {
+  color: #d8e8f6;
+  font-weight: 600;
+}
+
+.gridnova-login-card input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+  background: #081426;
+  color: white;
+  border: 1px solid #35516c;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.gridnova-login-card input:focus {
+  outline: 2px solid #34d7b5;
+}
+
+.gridnova-login-card button {
+  margin-top: 8px;
+  padding: 15px;
+  background: #36d4b4;
+  border: none;
+  border-radius: 10px;
+  color: #05212a;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.gridnova-login-card button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.gridnova-login-card .gridnova-login-error {
+  color: #ff9898;
+}
+
+.gridnova-login-card footer {
+  text-align: center;
+  color: #68a6bd;
+  margin-top: 32px;
+  font-size: 12px;
+}
+
+.gridnova-auth-check {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #07111f;
+  color: #36d4b4;
+}
